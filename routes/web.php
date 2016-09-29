@@ -12,3 +12,11 @@
 */
 
 Route::get('/', 'Web\HomeController@Home');
+
+//admin  'middleware' => ['auth'],
+Route::group(['namespace' => 'Admin',  'prefix' => 'bo'], function()
+{
+    Route::get('admin', function(){
+		return view('admin.home');
+	});
+});
