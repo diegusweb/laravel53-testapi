@@ -14,7 +14,9 @@
 Route::get('/', 'Web\HomeController@Home');
 
 //admin  'middleware' => ['auth'],
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'bo'], function()
+Route::group(['namespace' => 'Admin',  'prefix' => 'bo'], function()
 {
     Route::get('dashboard', 'DashboardController@index');
+
+    Route::resource('place_type', 'PlaceTypeController');
 });
