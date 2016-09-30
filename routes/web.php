@@ -17,6 +17,6 @@ Route::get('/', 'Web\HomeController@Home');
 Route::group(['namespace' => 'Admin',  'prefix' => 'bo'], function()
 {
     Route::get('admin', function(){
-		return view('admin.home');
+		return view('home');
 	});
 });
