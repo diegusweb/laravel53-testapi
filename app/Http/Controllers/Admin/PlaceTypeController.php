@@ -18,7 +18,8 @@ class PlaceTypeController extends Controller
      */
     public function index()
     {
-        return view('admin.placetypes.index');
+        $placeTypes = PlaceTypes::all();
+        return view('admin.placetypes.index', ["placetypes"=>$placeTypes]);
     }
 
     /**
