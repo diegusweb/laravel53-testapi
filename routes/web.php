@@ -18,5 +18,5 @@ Route::group(['namespace' => 'Admin',  'prefix' => 'bo'], function()
 {
     Route::get('dashboard', 'DashboardController@index');
 
-    Route::resource('placetype', 'PlaceTypeController');
+    Route::resource('placetypes', 'PlaceTypeController');
 });

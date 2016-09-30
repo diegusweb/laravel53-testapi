@@ -1,4 +1,4 @@
-{!! Form::open(['url' => $url, 'method' => $method]) !!}
+ {!! Form::open(['url' => $url, 'method' => $method]) !!}
   <div class="form-group">
     {{Form::text('title',$placetype->name,['class' => 'form-control',
       'placeholder' => 'title'])}}
@@ -12,4 +12,3 @@
     <input type="submit" value="Enviar" class="btn btn-success"/>
   </div>
 {!! Form::close() !!}
-</div>

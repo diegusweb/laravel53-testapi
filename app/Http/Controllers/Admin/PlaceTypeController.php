@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\PlaceType;
+use App\PlaceTypes;
 
 class PlaceTypeController extends Controller
 {
@@ -18,7 +18,7 @@ class PlaceTypeController extends Controller
      */
     public function index()
     {
-        return view('admin.placetype.index');
+        return view('admin.placetypes.index');
     }
 
     /**
@@ -28,8 +28,8 @@ class PlaceTypeController extends Controller
      */
     public function create()
     {
-        $Place_types = new PlaceType;
-       return view('admin.placetype.create',["placeType" => $Place_types]);
+        $Place_types = new PlaceTypes;
+       return view('admin.placetypes.create',["placeType" => $Place_types]);
     }
 
     /**
@@ -40,7 +40,18 @@ class PlaceTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new PlaceTypes;
+
+        $product->name = $request->title;
+        $product->description = $request->description;
+
+        if($product->save()){
+            return redirect('/bo/placetypes');
+        }
+        else{
+            return view('placetypes.create',["placetype" => $product]);
+        }
+
     }
 
     /**
