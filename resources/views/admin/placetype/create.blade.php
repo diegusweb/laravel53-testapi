@@ -4,6 +4,6 @@
 
     <div class="container white">
       <h1>Nuevo Tipo de Lugar</h1>
-    @include('place_type.form',['type' => $type, 'url' => '/place_types', 'method' => 'POST'])
+    @include('placetype.form',['placetype' => $placeType, 'url' => '/place_type', 'method' => 'POST'])
     </div>
 @endsection

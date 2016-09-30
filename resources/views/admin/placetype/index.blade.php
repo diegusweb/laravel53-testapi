@@ -14,10 +14,9 @@
                <div class="box-header">
                  <h3 class="box-title">Data Table With Full Features</h3>
                </div>
-			   <a href="{{url('/bo/place_type/create')}}" class="btn btn-primary">
-
-		   			<i class="glyphicon glyphicon-plus"></i> NUEVO TIPO DE LUGAR
-      </a>
+			   <a href="{{url('/bo/placetype/create')}}" class="btn btn-primary">
+		   		<i class="glyphicon glyphicon-plus"></i> NUEVO TIPO DE LUGAR
+      			</a>
 
                <!-- /.box-header -->
                <div class="box-body">
