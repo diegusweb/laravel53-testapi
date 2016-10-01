@@ -20,6 +20,6 @@ Route::group(['namespace' => 'Admin',  'prefix' => 'bo'], function()
     Route::get('dashboard', 'DashboardController@index');
     Route::get('placetypes/listall/{page?}','PlaceTypeController@listall');
     Route::resource('placetypes', 'PlaceTypeController');
-
+    Route::resource('place', 'PlaceController');
 
 });

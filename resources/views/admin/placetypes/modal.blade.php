@@ -7,7 +7,26 @@
       </div>
       <div class="modal-body">
 
-          @include('admin.placetypes.form')
+          {!! Form::open(['id' => 'form']) !!}
+         <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+         <input type="hidden"  id="id">
+         <div class="row">
+                 <div class="col-xs-12 col-sm-12 col-md-12">
+                     <div class="form-group">
+                         <strong>title:</strong>
+                         {!! Form::text('name', null, array('id' => 'name','placeholder' => 'Name','class' => 'form-control')) !!}
+                     </div>
+                 </div>
+
+                 <div class="col-xs-12 col-sm-12 col-md-12">
+                     <div class="form-group">
+                         <strong>description:</strong>
+                         {!! Form::textarea('description', null, array('id' => 'description','placeholder' => 'description','class' => 'form-control','style'=>'height:100px')) !!}
+                     </div>
+                 </div>
+
+             </div>
+             {!! Form::close() !!}
           <div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
