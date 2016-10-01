@@ -50,7 +50,7 @@ class PlaceTypeController extends Controller
             return redirect('/bo/placetypes');
         }
         else{
-            return view('placetypes.create',["placetype" => $product]);
+            return view('admin.placetypes.create',["placetype" => $product]);
         }
 
     }
@@ -63,7 +63,7 @@ class PlaceTypeController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -74,7 +74,8 @@ class PlaceTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $products = PlaceTypes::find($id);
+       return view('admin.placetypes.edit',["placetype" => $products]);
     }
 
     /**
@@ -86,7 +87,16 @@ class PlaceTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = PlaceTypes::find($id);
+
+      $product->name = $request->title;
+      $product->description = $request->description;
+
+
+      if($product->save())
+        return redirect('/bo/placetypes');
+      else
+         return view('admin.placetypes.edit',["placetype" => $product]);
     }
 
     /**
@@ -97,6 +107,8 @@ class PlaceTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        PlaceTypes::destroy($id);
+
+        return redirect('/bo/placetypes');
     }
 }

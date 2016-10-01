@@ -37,10 +37,12 @@
 							 <td>{{ $place->name}}</td>
 							 <td>{{ $place->description}}</td>
 							 <td>
-			                    <a href="{{url('/bo/placetypes/'.$place->id)}}" class="btn btn-success">Ver</a>
-			                    <a href="{{url('/bo/placetypes/'.$place->id.'/edit')}}"  class="btn btn-info">Editar</a>
-								<a href="{{url('/bo/placetypes/'.$place->id.'/edit')}}"  class="btn btn-danger">Eliminar</a>
-			{{-- @include('products.delete',['product' => $product]) --}}
+								 <div style="float:left">
+									 <a href="{{url('/bo/placetypes/'.$place->id.'/edit')}}"  class="btn btn-info">Editar</a>
+								 </div>
+								 <div style="float:rigth">
+									 @include('admin.placetypes.delete',['placetype' => $place])
+								 </div>
 			                </td>
 						   </tr>
 					   @endforeach
