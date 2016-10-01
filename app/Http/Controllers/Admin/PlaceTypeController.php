@@ -18,8 +18,17 @@ class PlaceTypeController extends Controller
      */
     public function index()
     {
-        $placeTypes = PlaceTypes::all();
-        return view('admin.placetypes.index', ["placetypes"=>$placeTypes]);
+        return View('admin.placetypes.index');
+        // $placeTypes = PlaceTypes::all();
+        // return view('admin.placetypes.index', ["placetypes"=>$placeTypes]);
+    }
+
+    public function listall(Request $request)
+    {
+      $placetypes= PlaceTypes::orderBy('id','DESC')->paginate(4);
+      return view('admin.placetypes.listPLaceType',compact('placetypes'))
+        ->with('i', ($request->input('page', 1) - 1) * 5);
+
     }
 
     /**
@@ -74,8 +83,12 @@ class PlaceTypeController extends Controller
      */
     public function edit($id)
     {
-        $products = PlaceTypes::find($id);
-       return view('admin.placetypes.edit',["placetype" => $products]);
+        //$products = PlaceTypes::find($id);
+       //return view('admin.placetypes.edit',["placetype" => $products]);
+
+       $product= PlaceTypes::findOrFail($id);
+        //return view('productosCrud.edit',compact('product'));
+        return response()->json($product);
     }
 
     /**
@@ -87,16 +100,33 @@ class PlaceTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = PlaceTypes::find($id);
 
-      $product->name = $request->title;
-      $product->description = $request->description;
+        if($request->ajax())
+        {
+          $product =   PlaceTypes::findOrFail($id);
+            $input = $request->all();
+            $result = $product->fill($input)->save();
+
+            if($result){
+              return response()->json(["success"=>'true']);
+            }
+            else{
+                return response()->json(["success"=>'false']);
+            }
+        }
+        
 
 
-      if($product->save())
-        return redirect('/bo/placetypes');
-      else
-         return view('admin.placetypes.edit',["placetype" => $product]);
+    //     $product = PlaceTypes::find($id);
+      //
+    //   $product->name = $request->title;
+    //   $product->description = $request->description;
+      //
+      //
+    //   if($product->save())
+    //     return redirect('/bo/placetypes');
+    //   else
+    //      return view('admin.placetypes.edit',["placetype" => $product]);
     }
 
     /**
