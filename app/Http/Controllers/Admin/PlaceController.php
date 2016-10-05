@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Place;
 use App\PlaceTypes;
+use Illuminate\Support\Facades\DB;
 
 class PlaceController extends Controller
 {
@@ -18,8 +19,26 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $places = Place::all();
+        $places = DB::table('places')
+            ->Join('place_types', 'place_types.id', '=', 'places.place_type_id')
+            ->select('places.*', 'place_types.name as place_type_name')
+            ->get();
+
+        //$places = Place::all();
+        //return $places;
         return view('admin.place.index', ["places"=>$places]);
+    }
+
+    public function listall(Request $request)
+    {
+        $places = DB::table('places')
+            ->Join('place_types', 'place_types.id', '=', 'places.place_type_id')
+            ->select('places.*', 'place_types.name as place_type_name')
+            ->paginate(5);
+
+      return view('admin.place.listPlace',compact('places'))
+        ->with('i', ($request->input('page', 1) - 1) * 5);
+
     }
 
     /**

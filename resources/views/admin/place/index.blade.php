@@ -21,43 +21,9 @@
           <!-- /.box-header -->
           <div class="box-body">
 
-    <table id="example1" class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th>No</th>
-        <th>Nombre</th>
-        <th>place type</th>
-        <th>Email</th>
-        <th>path</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-          @foreach ($places as $place)
-              <tr>
-                  <td>s</td>
-                <td>{{ $place->name}}</td>
-                <td>{{ $place->place_type_id}}</td>
-                <td>{{ $place->email}}</td>
-                <td>{{ $place->path}}</td>
-                <td>{{ $place->status}}</td>
-                <td>
-                    <div style="float:left">
-                        {{-- <a href="{{url('/bo/placetypes/'.$place->id.'/edit')}}"  class="btn btn-info">Editar</a> --}}
-                         <a class="btn btn-primary" href="#" onclick="Mostrar({{$place->id}})" data-toggle="modal" data-target="#myModal">Edit</a>
-                    </div>
-                    <div style="float:rigth">
-                        @include('admin.placetypes.delete',['placetype' => $place])
-                    </div>
-               </td>
-              </tr>
-          @endforeach
-      </tbody>
-
-    </table>
+			  <div id="list-place"> </div>
      {{-- {!! $places->render() !!} --}}
- </div>
+ 		</div>
  <!-- /.box-body -->
 </div>
 <!-- /.box -->
@@ -67,4 +33,77 @@
 <!-- /.row -->
 
 </div>
+<script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	   listPlace();
+});
+
+var listPlace = function(){
+  $.ajax({
+    type:'get',
+    url:'{{ url('bo/place/listall') }}',
+    success: function(data){
+      $('#list-place').empty().html(data);
+    }
+  });
+}
+
+var Mostrar = function(id)
+{
+  var route = "{{url('bo/place')}}/"+id+"/edit";
+  $.get(route, function(data){
+    $('#id').val(data.id);
+    $('#name').val(data.name);
+    $('#description').val(data.description);
+  })
+}
+
+$('#actualizar').click(function(e){
+   var id = $('#id').val();
+   var name = $('#name').val();
+   var details = $('#description').val();
+   var route = "{{url("bo/placetypes")}}/"+id+"";
+   var token = $('#token').val();
+   var dataString = {name: name, description: details};
+
+
+   $.ajax({
+	 url:route,
+	 headers:{'X-CSRF-TOKEN':token},
+	 type:'PUT',
+	 datatype:'json',
+	 data:dataString,
+	 success:function(data)
+	 {
+		 if(data.success == 'true')
+		 {
+		   listPlace();
+		 $('#myModal').modal('hide');
+
+
+		 }
+	 },
+	 error:function(data){
+	   $("#error").html(data.responseJson.name);
+	 }
+   });
+
+ });
+
+
+$(document).on("click", ".pagination li a", function(e){
+  e.preventDefault();
+
+  var url = $(this).attr('href');
+
+  $.ajax({
+    type:'get',
+    url:url,
+    success: function(data){
+      $('#list-place').empty().html(data);
+    }
+  });
+})
+</script>
 @endsection

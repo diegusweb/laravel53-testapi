@@ -1,20 +1,24 @@
 <table id="example1" class="table table-bordered table-striped">
   <thead>
   <tr>
-      <th>No</th>
+    <th>No</th>
     <th>Nombre</th>
-    <th>Descripcion</th>
+    <th>place type</th>
+    <th>Email</th>
+    <th>path</th>
     <th>Status</th>
     <th>Actions</th>
   </tr>
   </thead>
   <tbody>
-      @foreach ($placetypes as $place)
+      @foreach ($places as $place)
           <tr>
-              <td>{{ ++$i }}</td>
-            <td width="20%">{{ $place->name}}</td>
-            <td width="50%">{{ $place->description}}</td>
-            <td>{{ $place->status}}</td>
+             <td>{{ ++$i }}</td>
+            <td  width="25%">{{ $place->name}}</td>
+            <td>{{ $place->place_type_name}}</td>
+            <td width="20%">{{ $place->email}}</td>
+            <td>{{ $place->path}}</td>
+            <td>{{ $place->status == 1 ? "Activo" : "Inactivo"}}</td>
             <td>
                 <div style="float:left">
                     {{-- <a href="{{url('/bo/placetypes/'.$place->id.'/edit')}}"  class="btn btn-info">Editar</a> --}}
@@ -29,4 +33,5 @@
   </tbody>
 
 </table>
- {!! $placetypes->render() !!}
+
+ {!! $places->render() !!}

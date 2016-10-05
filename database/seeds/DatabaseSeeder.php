@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as F;
+use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        Model::unguard();
+
+        //$this->call(PlaceTypesSeed::class);
+        $this->call(PlaceSeeder::class);
+        //$this->call(ProductTableSeeder::class);
+
+        Model::reguard();
     }
 }

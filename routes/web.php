@@ -18,8 +18,11 @@ Route::get('/', 'Web\HomeController@Home');
 Route::group(['namespace' => 'Admin',  'prefix' => 'bo'], function()
 {
     Route::get('dashboard', 'DashboardController@index');
+
     Route::get('placetypes/listall/{page?}','PlaceTypeController@listall');
     Route::resource('placetypes', 'PlaceTypeController');
+
+    Route::get('place/listall/{page?}','PlaceController@listall');
     Route::resource('place', 'PlaceController');
 
 });
