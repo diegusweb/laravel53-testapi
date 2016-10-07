@@ -25,4 +25,7 @@ Route::group(['namespace' => 'Admin',  'prefix' => 'bo'], function()
     Route::get('place/listall/{page?}','PlaceController@listall');
     Route::resource('place', 'PlaceController');
 
+    Route::resource('address', 'AddressController');
+    Route::get('address/addAddress/{page?}','AddressController@addAddress');
+
 });

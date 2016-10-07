@@ -27,6 +27,9 @@
                 <div style="float:rigth">
                     @include('admin.placetypes.delete',['placetype' => $place])
                 </div>
+                <div style="float:rigth">
+                    <a href="{{url('/bo/address/addAddress/'.$place->id)}}" class="btn btn-success">address</a>
+                </div>
            </td>
           </tr>
       @endforeach
