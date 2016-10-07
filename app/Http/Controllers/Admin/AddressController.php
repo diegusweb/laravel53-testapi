@@ -45,7 +45,23 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $address = new Address;
+
+        $address->title = $request->title;
+        $address->city_id = 1;
+        $address->restaurants_id = $request->restaurants_id;
+        $address->address = $request->address;
+        $address->lat = $request->lat;
+        $address->lng = $request->lng;
+        //$product->path = $request->path;
+        $address->status = true;
+
+        if($address->save()){
+            return redirect('/bo/place');
+        }
+        else{
+            //return view('admin.address.create',["place" => $product]);
+        }
     }
 
     /**
