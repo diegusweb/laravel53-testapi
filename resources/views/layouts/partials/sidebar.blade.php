@@ -35,6 +35,7 @@
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('bo/placetypes') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.place_type') }}</span></a></li>
             <li><a href="{{ url('bo/place') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.place') }}</span></a></li>
+            <li><a href="{{ url('bo/address') }}"><i class='fa fa-link'></i> <span>Direcciones</span></a></li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.multilevel') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">

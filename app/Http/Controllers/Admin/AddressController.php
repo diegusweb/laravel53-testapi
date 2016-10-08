@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Address;
 use App\Place;
+use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
@@ -18,7 +19,14 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $address = DB::table('Addresses')
+            ->Join('places', 'places.id', '=', 'Addresses.place_id')
+            ->select('Addresses.*', 'places.name as place_name')
+            ->get();
+
+        //$places = Place::all();
+        //return $places;
+        return view('admin.address.index', ["address"=>$address]);
     }
 
     /**
