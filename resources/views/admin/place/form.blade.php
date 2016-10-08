@@ -1,4 +1,4 @@
-{!! Form::open(['url' => $url, 'method' => $method]) !!}
+{!! Form::open(['url' => $url, 'method' => $method,'files' => true]) !!}
   <div class="form-group">
     {{Form::text('title',$place->name,['class' => 'form-control',
       'placeholder' => 'title'])}}
@@ -14,8 +14,7 @@
     {{Form::select('status', ['1' => 'Activo', '0' => 'Inactivo'], null, ['placeholder' => 'Select Status','class' => 'form-control']) }}
   </div>
   <div class="form-group">
-    {{Form::text('path',$place->path,['class' => 'form-control',
-      'placeholder' => 'path'])}}
+     {{Form::file('file', array('class' => 'image'))}}
   </div>
   <div class="form-group">
     {{Form::textarea('description',$place->description,['class' => 'form-control',

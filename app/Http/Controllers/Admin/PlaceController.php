@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Place;
 use App\PlaceTypes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Validation\Validator;
 
 class PlaceController extends Controller
 {
@@ -33,7 +34,8 @@ class PlaceController extends Controller
     {
         $places = DB::table('places')
             ->Join('place_types', 'place_types.id', '=', 'places.place_type_id')
-            ->select('places.*', 'place_types.name as place_type_name')
+            ->select('places.*', 'place_types.name as place_type_name')    
+            ->orderBy('id', 'desc')
             ->paginate(5);
 
       return view('admin.place.listPlace',compact('places'))
@@ -61,6 +63,25 @@ class PlaceController extends Controller
      */
     public function store(Request $request)
     {
+        /*$this->validation($request,[
+            'title' => 'required|max:50',
+            'description' => 'required|max:10'
+        ])*/
+
+        $hasFile = $request->hasFile('file') && $request->file->isValid();
+        //$product = new Product;
+
+        /*$file = $request->hasFile('file') ;
+       // SET UPLOAD PATH
+        $destinationPath = 'uploads';
+        // GET THE FILE EXTENSION
+        $extension = $file->getClientOriginalExtension();
+        // RENAME THE UPLOAD WITH RANDOM NUMBER
+        $fileName = rand(11111, 99999) . '.' . $extension;
+        // MOVE THE UPLOADED FILES TO THE DESTINATION DIRECTORY
+        $upload_success = $file->move($destinationPath, $fileName);*/
+
+
         $product = new Place;
 
         $product->name = $request->title;
@@ -68,10 +89,19 @@ class PlaceController extends Controller
         $product->description = $request->description;
         $product->status = $request->status;
         $product->email = $request->email;
-        $product->path = $request->path;
+        //$product->path = ($fileName != null) ? $fileName : null;
         $product->place_type_id = $request->id;
 
+        if($hasFile){
+            $extension = $request->file->extension();
+            $nameD = $request->title;
+            $product->path = $nameD.".".$extension;
+        }
+
         if($product->save()){
+            if($hasFile){
+                $request->file->storeAs('images', "$nameD.$extension");
+            }
             return redirect('/bo/place');
         }
         else{
